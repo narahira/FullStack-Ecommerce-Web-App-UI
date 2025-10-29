@@ -1,0 +1,96 @@
+<div class="container">
+<div class="row">
+    <section class="col-3">
+        <ng-container *ngIf = "products">
+            <h5 class="text-warning ml-3">Sort</h5>
+            <select 
+            class="custom-select mb-3"
+            (change)="onSortSelected($any($event.target).value)">
+                <option *ngFor="let sort of sortOptions" [value]="sort.value">
+                    {{sort.name}}
+                </option>
+            </select>
+        <h5 class="text-warning ml-3">Brands</h5>
+        <ul class="list-group my-3" >
+            <li 
+               *ngFor="let brand of brands"
+              class="list-group-item"
+              [class.active]="brand.id === this.storeParams.BrandId"
+              [value]="brand.id"
+              (click)="onBrandSelected(brand.id)"
+            >{{brand.name}}</li>
+            <!-- <li class="list-group-item">{{brand.name}}</li> -->
+        </ul>
+        <h5 class="text-warning ml-3">Types</h5>
+        <ul class="list-group my-3"  >
+            <li *ngFor = "let type of types"
+            class="list-group-item"
+            [class.active] = "type.id == this.storeParams.TypeId"
+            [value]="type.id"
+            (click)="onTypeSelected(type.id)"
+            >{{type.name}}</li>
+            <!-- <li class="list-group-item">{{type.name}}</li> -->
+        </ul>
+        </ng-container>
+    </section>
+
+    <section class="col-9">
+        <div class="d-flex justify-content-between align-items-center pb-2">
+            <header>
+                <span>Showing <strong>{{(this.storeParams.pageNumber - 1)*this.storeParams.pageSize+1}} -
+                    {{
+                        this.storeParams.pageNumber*this.storeParams.pageSize > this.totalCount ?
+                        this.totalCount : this.storeParams.pageNumber*this.storeParams.pageSize
+                    }}
+                </strong> of <strong>{{this.totalCount}}</strong> Results</span>
+                <span *ngIf="totalCount === 0">There are <strong>0</strong> results for the filter</span>
+            </header>
+            <div class="form-inline mt-2">
+                <input (keyup.enter)="onSearch()" class="form-control mr-2" #search style="width: 300px;" placeholder="Search" type="text">
+                <button (click)="onSearch()" class="btn btn-outline-primary my-2">
+                    Search
+                </button>
+                <button (click)="onReset()" class="btn btn-outline-primary ml-2 my-2">
+                    Reset
+                </button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="totalPages > 1">
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="storeParams.pageNumber === 1">
+                <a class="page-link" aria-label="First" (click)="onPageChanged(1, $event)">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" [class.disabled]="storeParams.pageNumber === 1">
+            <a class="page-link" href="#" aria-label="Previous" (click)="onPageChanged(storeParams.pageNumber - 1, $event)">
+                <span aria-hidden="true">&lsaquo;</span>
+            </a>
+            </li>
+            <li class="page-item"  *ngFor="let page of pages"
+                [class.active]="page === storeParams.pageNumber">
+                <a class="page-link" href="#" (click)="onPageChanged(page, $event)">{{page}}</a>
+            </li>
+            <li class="page-item" [class.disabled]="storeParams.pageNumber === totalPages">
+            <a class="page-link" href="#" aria-label="Next"
+             (click)="onPageChanged(storeParams.pageNumber + 1, $event)">
+                <span aria-hidden="true">&rsaquo;</span>
+            </a>
+            </li>
+            <li class="page-item" [class.disabled]="storeParams.pageNumber === totalPages">
+                <a class="page-link" href="#" aria-label="Last"
+                 (click)="onPageChanged(totalPages, $event)">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+            <div class="row row-cols-3 g-3">
+            <div class="col" *ngFor = "let item of products">
+                <app-product-items [product]="item"></app-product-items>
+            </div>
+        </div>        
+    </section>
+    
+</div>
+</div>
