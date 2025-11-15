@@ -7,11 +7,16 @@ import { IProduct } from './shared/models/products';
 import { IPagination } from './shared/models/pagination';
 import { StoreComponent } from './store/store.component';
 import { HeaderComponent } from './core/header/header.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,CommonModule,StoreComponent,HeaderComponent,],
+  imports: [RouterOutlet,NavbarComponent,
+    CommonModule,StoreComponent,
+    HeaderComponent, 
+    NgxSpinnerModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

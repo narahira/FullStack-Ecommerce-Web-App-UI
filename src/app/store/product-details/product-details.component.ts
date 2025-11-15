@@ -3,6 +3,7 @@ import { IProduct } from '../../shared/models/products';
 import { StoreService } from '../store.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-product-details',
@@ -15,7 +16,9 @@ export class ProductDetailsComponent implements OnInit {
 
   product?: IProduct;
 
-  constructor(private storeService:StoreService, private activateRoute:ActivatedRoute){}
+  constructor(private storeService:StoreService, private activateRoute:ActivatedRoute,
+    private bcService:BreadcrumbService
+  ){}
   ngOnInit(): void {
     this.loadProduct();
   }
@@ -25,6 +28,7 @@ export class ProductDetailsComponent implements OnInit {
       this.storeService.getProductsById(id).subscribe({
         next:(res)=>{
           this.product = res;
+          this.bcService.set('@productDetails',res.name);
         },
         error:(err)=>{
           console.log(err);

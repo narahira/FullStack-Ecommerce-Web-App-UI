@@ -10,6 +10,6 @@ export const store_routes: Routes =[
     },
     {
         path:':id',
-        component:ProductDetailsComponent
+        component:ProductDetailsComponent, data:{ breadcrumb:{alias:'productDetails'}}
     }
 ]

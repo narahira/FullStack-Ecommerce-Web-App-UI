@@ -7,13 +7,13 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 import { UnAuthenticatedComponent } from './core/un-authenticated/un-authenticated.component';
 
 export const routes: Routes = [
-    {path:'',component:HomeComponent},
+    {path:'',component:HomeComponent,data: { breadcrumb: 'Home' }},
     {path:'server-error',component:ServerErrorComponent},
     {path:'not-found',component:NotFoundComponent},
     {path:'un-authenticated',component:UnAuthenticatedComponent},
     {path:'store',
         // component:StoreComponent,
-        loadChildren:()=>import('./store/store.routes').then(m=>m.store_routes)
+        loadChildren:()=>import('./store/store.routes').then(m=>m.store_routes),data: { breadcrumb: 'Store' }
     },
     // {path:'store/:id',component:ProductDetailsComponent},
     {path:'**',redirectTo:'',pathMatch:'full'}
