@@ -15,6 +15,9 @@ export const routes: Routes = [
         // component:StoreComponent,
         loadChildren:()=>import('./store/store.routes').then(m=>m.store_routes),data: { breadcrumb: 'Store' }
     },
+    {path:'basket',
+        loadChildren:()=>import('./basket/basket.routes').then(m=>m.basket_routes),data: { breadcrumb: 'Basket' }
+    },
     // {path:'store/:id',component:ProductDetailsComponent},
     {path:'**',redirectTo:'',pathMatch:'full'}
 ];

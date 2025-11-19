@@ -3,7 +3,7 @@ import { ProductDetailsComponent } from "./product-details/product-details.compo
 import { ProductItemsComponent } from "./product-items/product-items.component";
 import { StoreComponent } from "./store.component";
 
-export const store_routes: Routes =[
+export const store_routes: Routes = [
     {
         path:'',
         component:StoreComponent
